@@ -4,18 +4,23 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/google/uuid"
 )
 
 func main() {
 
 	type HealthCheckResponse struct {
-		Message     string
-		ServiceName string
-		InstanceID  string
+		Message     string `json:"message"`
+		ServiceName string `json:"service_name"`
+		InstanceID  string `json:"instance_id"`
+	}
+
+	instanceID := ""
+	if instanceID == "" {
+		instanceID = uuid.New().String()
 	}
 
 	serviceName := "bookmark-sevice"
-	instanceID := "abcdef12345"
 
 	r := gin.Default()
 	r.GET("/health-check", func(c *gin.Context) {
